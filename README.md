@@ -20,7 +20,7 @@ To use this hash map user need to include [header](HashTable.hpp) file with `cus
 `custom_map` provides following base methods:
 - `insert`
 - `erase`
-- `search` which return `Iterator` on found object (or `end` otherwise)
+- `search` which returnz `Iterator` on found object (or `end` otherwise)
 
 Also, it's possible to provide own custom hash function and comparator as template args like in `std::unordered_map`.
 
@@ -34,16 +34,14 @@ Added only simple tests for integer keys.
 
 Build:
 
-```
+```bash
 g++ -std=c++17 -pedantic -Wall test.cpp -o run
-
 ```
 
 Run:
 
-```
+```bash
 ./run
-
 ```
 
 Work done and tested on Linux OS.
