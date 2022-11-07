@@ -1,62 +1,55 @@
-# Тестовое задание для Raiffeisenbank
+# Fast hash table implementation
 
 -----
 
-## Задание 
+## Requiremtns 
 
-### Формулировка
-
-Необходимо написать хэш-таблицу, при добавлении элементов к которой в большинстве случаев не происходит 
-динамическое создание новых объектов (не используется оператор new). 
-Хэш-таблица должна позволять переопределять компаратор и хэширующую функцию. 
-Должны поддерживаться операции: вставка, удаление, поиск.
+Required to impelement hash table with decreased amount of dynamic memory allocations (`new` operator calls). Implemented hash table must provide API to overriding comparator and hash function.
 
 
-### Язык реализации 
+## Implementation description
 
-C++
+### Main idea
 
+Main idea to decrease new calls count is to use hash table with open addressing instead classic hash table with chaining. In this repo implemented variation of hash table published in [article on habr](https://habr.com/ru/company/mailru/blog/323242) with internal table size equal to power of 2 for fast `mod` computation. Another option - use prime numbers for table size can decrease table's memory footprint is harder to implement and leads to longer `mod` computation.
 
-## Реализация
+### Details
 
-### Основная идея
+To use this hash map user need to include [header](HashTable.hpp) file with `custom_map` implementation. 
 
-[Основная идея реализации](https://habr.com/ru/company/mailru/blog/323242/) - была выбрана открытая адресация чтобы не вызывать *new* при каждом добавлении объекта в цепочку (связанный список).
+`custom_map` provides following base methods:
+- `insert`
+- `erase`
+- `search` which return `Iterator` on found object (or `end` otherwise)
 
-Взят вариант с размером таблицы - степенью двойки.
+Also, it's possible to provide own custom hash function and comparator as template args like in `std::unordered_map`.
 
-### Детали реализации
-
-[Реализация хэш-таблицы](HashTable.hpp) в классе-шаблоне **custom_map** подключается как обычный заголовчный файл. 
-Реализован функционал задания: добавление *insert*, удаление *erase*, поиск по ключу *search*. 
-Результат поиска обернут в итератор **Iterator**.
-
-## Тестирование
+## Testing
 
 ### Суть
 
-К своему стыду протестировано плохо в силу того,что не осталось времени для создания приличных тестов, поэтому создан 
-[тестоый файл](test.cpp) для демонстрации основного функционала хэш-таблицы и проверки ее работы на стандартных данных.
+Added only simple tests for integer keys.
  
-### Компиляция и запуск 
-Компиляция:
+### Launching
+
+Build:
 
 ```
 g++ -std=c++17 -pedantic -Wall test.cpp -o run
 
 ```
 
-Запуск:
+Run:
 
 ```
 ./run
 
 ```
 
-Операционная система: Linux
+Work done and tested on Linux OS.
 
 
 -----
 
-##### Made by Max Bronnikov
+**Made by Maksim Bronnikov**
 
